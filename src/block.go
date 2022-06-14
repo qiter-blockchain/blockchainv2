@@ -41,7 +41,12 @@ func NewBlock(data string, prevBlockHash []byte) *Block {
 		Hash:          []byte{},
 		Data:          []byte(data),
 	}
-	block.SetHash()
+	//v1版本
+	// block.SetHash()
+	pow := NewProofOfWork(&block)
+	hash, nonce := pow.Run()
+	block.Hash = hash
+	block.Nonce = nonce
 	return &block
 }
 
